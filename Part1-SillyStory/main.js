@@ -1,3 +1,10 @@
+/* 
+Name: Hrigdev Thapa
+File: script.js
+Date: 27 November 2025
+Description: Main JavaScript for the Silly Story Generator. It creates the random story by choosing random items, handling the custom name and UK options, and updating the story on the page.
+
+*/
 // Complete variable definitions and random functions
 
 const customName = document.getElementById("custom-name");

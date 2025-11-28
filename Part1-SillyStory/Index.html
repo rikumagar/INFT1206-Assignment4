@@ -1,16 +1,40 @@
-<div>
+<!--
+Name: Hrigdev Magar
+File: index.html
+Date: 27 November 2025
+Description: HTML page for the Silly Story Generator. It holds the input box, buttons, and story area that the JavaScript uses to create and display a random silly story.
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Silly Story Generator</title>
+</head>
+<body>
+
+  <div>
     <label for="custom-name">Enter custom name:</label>
     <input id="custom-name" type="text" placeholder="" />
   </div>
+
   <fieldset>
     <legend>Choose locale:</legend>
-    <label for="us">US</label
-    ><input id="us" type="radio" name="uk-us" value="us" checked />
-    <label for="uk">UK</label
-    ><input id="uk" type="radio" name="uk-us" value="uk" />
+    <label for="us">US</label>
+    <input id="us" type="radio" name="uk-us" value="us" checked />
+
+    <label for="uk">UK</label>
+    <input id="uk" type="radio" name="uk-us" value="uk" />
   </fieldset>
+
   <div>
     <button class="generate">Generate random story</button>
   </div>
+
   <!-- Thanks a lot to Willy Aguirre for his help with the code for this assessment -->
   <p class="story"></p>
+
+  <script src="script.js"></script>
+</body>
+</html>
