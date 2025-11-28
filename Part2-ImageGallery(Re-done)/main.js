@@ -48,3 +48,18 @@ function updateDisplayedImage(image) {
   displayedImage.src = image.src;
   displayedImage.alt = image.alt;
 }
+
+// Darken/Lighten button
+btn.addEventListener("click", () => {
+  const current = btn.getAttribute("class");
+
+  if (current === "dark") {
+    btn.textContent = "Lighten";
+    overlay.style.backgroundColor = "rgb(0 0 0 / 0.5)";
+    btn.setAttribute("class", "light");
+  } else {
+    btn.textContent = "Darken";
+    overlay.style.backgroundColor = "rgb(0 0 0 / 0)";
+    btn.setAttribute("class", "dark");
+  }
+});
