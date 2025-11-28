@@ -19,3 +19,32 @@ const images = [
   { filename: "pic4.jpg", alt: "Section of wall from a pharaoh's tomb" },
   { filename: "pic5.jpg", alt: "Large moth on a leaf" }
 ];
+
+const baseURL = "./";
+
+// Create thumbnail images
+for (const img of images) {
+  const newImage = document.createElement("img");
+  newImage.src = baseURL + img.filename;
+  newImage.alt = img.alt;
+
+  newImage.setAttribute("tabindex", "0");
+
+  thumbBar.appendChild(newImage);
+
+  newImage.addEventListener("click", () => {
+    updateDisplayedImage(newImage);
+  });
+
+  newImage.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      updateDisplayedImage(newImage);
+    }
+  });
+}
+
+// Update large image
+function updateDisplayedImage(image) {
+  displayedImage.src = image.src;
+  displayedImage.alt = image.alt;
+}
