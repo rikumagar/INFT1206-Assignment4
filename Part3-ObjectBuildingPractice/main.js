@@ -22,7 +22,7 @@ function randomRGB() {
   return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
 }
 
-// Ball class with draw + update
+// Ball class
 class Ball {
   constructor(x, y, velX, velY, color, size) {
     this.x = x;
@@ -40,20 +40,56 @@ class Ball {
     ctx.fill();
   }
 
-  // movement + bounce logic
   update() {
-    // bounce off right and left sides
     if (this.x + this.size >= width || this.x - this.size <= 0) {
-      this.velX = -this.velX; // reverse direction
+      this.velX = -this.velX;
     }
 
-    // bounce off top and bottom
     if (this.y + this.size >= height || this.y - this.size <= 0) {
       this.velY = -this.velY;
     }
 
-    // apply movement
     this.x += this.velX;
     this.y += this.velY;
   }
 }
+
+// ------------------------------------
+// Create 25 balls with random values 
+// ------------------------------------
+
+const balls = [];
+
+while (balls.length < 25) {
+  const size = random(10, 20);
+  const ball = new Ball(
+    random(0 + size, width - size),
+    random(0 + size, height - size),
+    random(-7, 7),
+    random(-7, 7),
+    randomRGB(),
+    size
+  );
+
+  balls.push(ball);
+}
+
+// ------------------------------------
+// Animation loop 
+// ------------------------------------
+
+function loop() {
+  // clear previous frame using semi-transparent rectangle
+  ctx.fillStyle = "rgb(0 0 0 / 25%)";
+  ctx.fillRect(0, 0, width, height);
+
+  for (const ball of balls) {
+    ball.draw();
+    ball.update();
+  }
+
+  requestAnimationFrame(loop);
+}
+
+loop();
+
