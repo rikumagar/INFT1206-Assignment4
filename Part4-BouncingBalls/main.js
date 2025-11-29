@@ -1,3 +1,10 @@
+/* 
+  Name: Hrigdev Thapa
+  Date:2025/11/28
+  Filename: main.js
+  Description: Starting Part 4 of the bouncing balls project. This version uses the completed Part 3 
+  code and prepares for adding new object features, inheritance, and a player-controlled EvilCircle.
+*/
 
 // setup canvas
 const canvas = document.querySelector("canvas");
