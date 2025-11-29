@@ -36,63 +36,139 @@
       <div class="form-section">
         <h2>Facilities</h2>
 
-        Was the porridge  
-        Too hot?  
-        Too cold?  
-        Just right?  
+        <!-- Porridge radio group -->
+        <fieldset>
+          <legend>Was the porridge</legend>
 
-        Were the beds  
-        Too hard?  
-        Too soft?  
-        Just right?  
+          <div class="separator">
+            <label for="porridge-hot">Too hot?</label>
+            <input id="porridge-hot" name="porridge" type="radio" value="hot" checked>
+          </div>
 
-        Describe the chairs (select all you agree with)  
-        Comfy  
-        Luxurious  
-        Hi tec  
-        Pretty  
-        Majestic  
+          <div class="separator">
+            <label for="porridge-cold">Too cold?</label>
+            <input id="porridge-cold" name="porridge" type="radio" value="cold">
+          </div>
+
+          <div class="separator">
+            <label for="porridge-just">Just right?</label>
+            <input id="porridge-just" name="porridge" type="radio" value="just-right">
+          </div>
+        </fieldset>
+
+        <!-- Beds radio group -->
+        <fieldset>
+          <legend>Were the beds</legend>
+
+          <div class="separator">
+            <label for="beds-hard">Too hard?</label>
+            <input id="beds-hard" name="beds" type="radio" value="hard" checked>
+          </div>
+
+          <div class="separator">
+            <label for="beds-soft">Too soft?</label>
+            <input id="beds-soft" name="beds" type="radio" value="soft">
+          </div>
+
+          <div class="separator">
+            <label for="beds-just">Just right?</label>
+            <input id="beds-just" name="beds" type="radio" value="just-right">
+          </div>
+        </fieldset>
+
+        <!-- Chairs checkbox group -->
+        <fieldset>
+          <legend>Describe the chairs (select all you agree with)</legend>
+
+          <div class="separator">
+            <label for="chair-comfy">Comfy</label>
+            <input id="chair-comfy" type="checkbox" value="comfy">
+          </div>
+
+          <div class="separator">
+            <label for="chair-lux">Luxurious</label>
+            <input id="chair-lux" type="checkbox" value="luxurious">
+          </div>
+
+          <div class="separator">
+            <label for="chair-hitec">Hi tec</label>
+            <input id="chair-hitec" type="checkbox" value="hi-tec">
+          </div>
+
+          <div class="separator">
+            <label for="chair-pretty">Pretty</label>
+            <input id="chair-pretty" type="checkbox" value="pretty">
+          </div>
+
+          <div class="separator">
+            <label for="chair-majestic">Majestic</label>
+            <input id="chair-majestic" type="checkbox" value="majestic">
+          </div>
+        </fieldset>
+
       </div>
 
       <!-- About Your Hosts Section -->
       <div class="form-section">
         <h2>About your hosts</h2>
 
-        Who's your favorite bear?  
-        Papa bear  
-        Mama bear  
-        Junior  
-        Dozer  
+        <div class="separator">
+          <label for="fave-bear">Who's your favorite bear?</label>
+          <select id="fave-bear">
+            <option>Papa bear</option>
+            <option>Mama bear</option>
+            <option>Junior</option>
+            <option>Dozer</option>
+          </select>
+        </div>
 
-        Which greeting did you prefer?  
-        Wave  
-        Friendly greeting  
-        Growl  
-        Claw marks in the door  
+        <div class="separator">
+          <label for="greeting">Which greeting did you prefer?</label>
+          <select id="greeting">
+            <option>Wave</option>
+            <option>Friendly greeting</option>
+            <option>Growl</option>
+            <option>Claw marks in the door</option>
+          </select>
+        </div>
       </div>
 
       <!-- Other Feedback Section -->
       <div class="form-section">
         <h2>Any other feedback?</h2>
 
-        Give us your comments
+        <label for="comments">Give us your comments</label><br>
+        <textarea id="comments"></textarea>
       </div>
 
       <!-- Your Details Section -->
       <div class="form-section">
         <h2>Your details</h2>
 
-        Name  
-        Email  
-        Phone  
+        <div class="separator">
+          <label for="name">Name</label>
+          <input id="name" type="text">
+        </div>
+
+        <div class="separator">
+          <label for="email">Email</label>
+          <input id="email" type="email">
+        </div>
+
+        <div class="separator">
+          <label for="phone">Phone</label>
+          <input id="phone" type="tel">
+        </div>
       </div>
 
+      <!-- Submit Button -->
       <div class="form-section">
-        Submit
+        <button type="submit">Submit</button>
       </div>
 
     </form>
 
   </body>
 </html>
+
 
