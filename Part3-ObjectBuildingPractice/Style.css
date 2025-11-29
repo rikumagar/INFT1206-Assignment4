@@ -1,3 +1,11 @@
+/*
+  Name: Hrigdev Thapa
+  Date:2025/11/28
+  Filename: style.css
+  Description: This project creates an animated bouncing balls demo using HTML, CSS, and JavaScript. 
+  It sets up a full-screen canvas, uses a Ball class to build moving objects, and animates them with movement, color changes, and collision detection.
+*/
+
 html, body {
   margin: 0;
 }
