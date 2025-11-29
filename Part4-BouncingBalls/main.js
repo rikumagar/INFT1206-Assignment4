@@ -22,16 +22,27 @@ function randomRGB() {
   return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
 }
 
-// Ball class
-class Ball {
-  constructor(x, y, velX, velY, color, size) {
+// -----------------------------------
+// Shape class (new for Part 4)
+// -----------------------------------
+class Shape {
+  constructor(x, y, velX, velY) {
     this.x = x;
     this.y = y;
     this.velX = velX;
     this.velY = velY;
+  }
+}
+
+// -----------------------------------
+// Ball class now EXTENDS Shape
+// -----------------------------------
+class Ball extends Shape {
+  constructor(x, y, velX, velY, color, size) {
+    super(x, y, velX, velY); // pass shared properties to Shape
     this.color = color;
     this.size = size;
-    this.exists = true; // important for Part 4
+    this.exists = true; // used later for evil circle
   }
 
   draw() {
@@ -54,6 +65,7 @@ class Ball {
     this.y += this.velY;
   }
 
+  // updated collisionDetect using ball.exists
   collisionDetect() {
     for (const ball of balls) {
       if (!(this === ball) && ball.exists) {
@@ -86,7 +98,7 @@ while (balls.length < 25) {
   balls.push(ball);
 }
 
-// animation loop
+// main animation loop
 function loop() {
   ctx.fillStyle = "rgb(0 0 0 / 25%)";
   ctx.fillRect(0, 0, width, height);
@@ -103,3 +115,4 @@ function loop() {
 }
 
 loop();
+
