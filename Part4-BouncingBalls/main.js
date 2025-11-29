@@ -2,8 +2,8 @@
   Name: Hrigdev Thapa
   Date:2025/11/28
   Filename: main.js
-  Description: Starting Part 4 of the bouncing balls project. This version uses the completed Part 3 
-  code and prepares for adding new object features, inheritance, and a player-controlled EvilCircle.
+  Description: Part 4 - Commit 4. Added the EvilCircle class, including movement, 
+  drawing, bounds checking, and eating balls. No score counter yet.
 */
 
 // setup canvas
@@ -23,7 +23,7 @@ function randomRGB() {
 }
 
 // -----------------------------------
-// Shape class (new for Part 4)
+// Shape class
 // -----------------------------------
 class Shape {
   constructor(x, y, velX, velY) {
@@ -35,14 +35,14 @@ class Shape {
 }
 
 // -----------------------------------
-// Ball class now EXTENDS Shape
+// Ball class
 // -----------------------------------
 class Ball extends Shape {
   constructor(x, y, velX, velY, color, size) {
-    super(x, y, velX, velY); // pass shared properties to Shape
+    super(x, y, velX, velY);
     this.color = color;
     this.size = size;
-    this.exists = true; // used later for evil circle
+    this.exists = true; // used for evil circle eating
   }
 
   draw() {
@@ -65,7 +65,6 @@ class Ball extends Shape {
     this.y += this.velY;
   }
 
-  // updated collisionDetect using ball.exists
   collisionDetect() {
     for (const ball of balls) {
       if (!(this === ball) && ball.exists) {
@@ -81,7 +80,75 @@ class Ball extends Shape {
   }
 }
 
-// create balls
+// -----------------------------------
+// EvilCircle class 
+// -----------------------------------
+class EvilCircle extends Shape {
+  constructor(x, y) {
+    super(x, y, 20, 20); // velX & velY hardcoded to 20
+    this.color = "white";
+    this.size = 10;
+
+    // WASD keyboard controls
+    window.addEventListener("keydown", (e) => {
+      switch (e.key) {
+        case "a":
+          this.x -= this.velX;
+          break;
+        case "d":
+          this.x += this.velX;
+          break;
+        case "w":
+          this.y -= this.velY;
+          break;
+        case "s":
+          this.y += this.velY;
+          break;
+      }
+    });
+  }
+
+  draw() {
+    ctx.beginPath();
+    ctx.strokeStyle = this.color;
+    ctx.lineWidth = 3; // thicker outline
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+    ctx.stroke();
+  }
+
+  checkBounds() {
+    if (this.x + this.size > width) {
+      this.x = width - this.size;
+    }
+    if (this.x - this.size < 0) {
+      this.x = this.size;
+    }
+    if (this.y + this.size > height) {
+      this.y = height - this.size;
+    }
+    if (this.y - this.size < 0) {
+      this.y = this.size;
+    }
+  }
+
+  collisionDetect() {
+    for (const ball of balls) {
+      if (ball.exists) {
+        const dx = this.x - ball.x;
+        const dy = this.y - ball.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < this.size + ball.size) {
+          ball.exists = false; // ball is eaten
+        }
+      }
+    }
+  }
+}
+
+// -----------------------------------
+// Create balls
+// -----------------------------------
 const balls = [];
 
 while (balls.length < 25) {
@@ -98,7 +165,12 @@ while (balls.length < 25) {
   balls.push(ball);
 }
 
-// main animation loop
+// Create ONE evil circle
+const evil = new EvilCircle(random(50, width - 50), random(50, height - 50));
+
+// -----------------------------------
+// Animation loop
+// -----------------------------------
 function loop() {
   ctx.fillStyle = "rgb(0 0 0 / 25%)";
   ctx.fillRect(0, 0, width, height);
@@ -111,8 +183,11 @@ function loop() {
     }
   }
 
+  evil.draw();
+  evil.checkBounds();
+  evil.collisionDetect();
+
   requestAnimationFrame(loop);
 }
 
 loop();
-
