@@ -6,12 +6,15 @@
   drawing, bounds checking, and eating balls. No score counter yet.
 */
 
-// setup canvas
+// -------------------- SETUP --------------------
+
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 const width = (canvas.width = window.innerWidth);
 const height = (canvas.height = window.innerHeight);
+
+const countDisplay = document.getElementById("ball-count");
 
 // random helpers
 function random(min, max) {
@@ -19,12 +22,11 @@ function random(min, max) {
 }
 
 function randomRGB() {
-  return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
+  return `rgb(${random(0,255)},${random(0,255)},${random(0,255)})`;
 }
 
-// -----------------------------------
-// Shape class
-// -----------------------------------
+// -------------------- SHAPE CLASS --------------------
+
 class Shape {
   constructor(x, y, velX, velY) {
     this.x = x;
@@ -34,18 +36,19 @@ class Shape {
   }
 }
 
-// -----------------------------------
-// Ball class
-// -----------------------------------
+// -------------------- BALL CLASS --------------------
+
 class Ball extends Shape {
-  constructor(x, y, velX, velY, color, size) {
+  constructor(x, y, velX, velY, size, color) {
     super(x, y, velX, velY);
-    this.color = color;
     this.size = size;
-    this.exists = true; // used for evil circle eating
+    this.color = color;
+    this.exists = true;
   }
 
   draw() {
+    if (!this.exists) return;
+
     ctx.beginPath();
     ctx.fillStyle = this.color;
     ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
@@ -53,6 +56,8 @@ class Ball extends Shape {
   }
 
   update() {
+    if (!this.exists) return;
+
     if (this.x + this.size >= width || this.x - this.size <= 0) {
       this.velX = -this.velX;
     }
@@ -80,30 +85,21 @@ class Ball extends Shape {
   }
 }
 
-// -----------------------------------
-// EvilCircle class 
-// -----------------------------------
+// -------------------- EVIL CIRCLE --------------------
+
 class EvilCircle extends Shape {
   constructor(x, y) {
-    super(x, y, 20, 20); // velX & velY hardcoded to 20
+    super(x, y, 20, 20);
     this.color = "white";
     this.size = 10;
 
-    // WASD keyboard controls
+    // WASD movement
     window.addEventListener("keydown", (e) => {
       switch (e.key) {
-        case "a":
-          this.x -= this.velX;
-          break;
-        case "d":
-          this.x += this.velX;
-          break;
-        case "w":
-          this.y -= this.velY;
-          break;
-        case "s":
-          this.y += this.velY;
-          break;
+        case "a": this.x -= this.velX; break;
+        case "d": this.x += this.velX; break;
+        case "w": this.y -= this.velY; break;
+        case "s": this.y += this.velY; break;
       }
     });
   }
@@ -111,24 +107,16 @@ class EvilCircle extends Shape {
   draw() {
     ctx.beginPath();
     ctx.strokeStyle = this.color;
-    ctx.lineWidth = 3; // thicker outline
+    ctx.lineWidth = 3;
     ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
     ctx.stroke();
   }
 
   checkBounds() {
-    if (this.x + this.size > width) {
-      this.x = width - this.size;
-    }
-    if (this.x - this.size < 0) {
-      this.x = this.size;
-    }
-    if (this.y + this.size > height) {
-      this.y = height - this.size;
-    }
-    if (this.y - this.size < 0) {
-      this.y = this.size;
-    }
+    if (this.x + this.size > width) this.x = width - this.size;
+    if (this.x - this.size < 0) this.x = 0 + this.size;
+    if (this.y + this.size > height) this.y = height - this.size;
+    if (this.y - this.size < 0) this.y = 0 + this.size;
   }
 
   collisionDetect() {
@@ -139,38 +127,41 @@ class EvilCircle extends Shape {
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < this.size + ball.size) {
-          ball.exists = false; // ball is eaten
+          ball.exists = false;
+          ballCount--;
+          countDisplay.textContent = ballCount;
         }
       }
     }
   }
 }
 
-// -----------------------------------
-// Create balls
-// -----------------------------------
+// -------------------- CREATE BALLS --------------------
+
 const balls = [];
+let ballCount = 0;
 
 while (balls.length < 25) {
   const size = random(10, 20);
   const ball = new Ball(
-    random(0 + size, width - size),
-    random(0 + size, height - size),
+    random(size, width - size),
+    random(size, height - size),
     random(-7, 7),
     random(-7, 7),
-    randomRGB(),
-    size
+    size,
+    randomRGB()
   );
 
   balls.push(ball);
+  ballCount++;
+  countDisplay.textContent = ballCount;
 }
 
-// Create ONE evil circle
-const evil = new EvilCircle(random(50, width - 50), random(50, height - 50));
+// create evil circle
+const evil = new EvilCircle(100, 100);
 
-// -----------------------------------
-// Animation loop
-// -----------------------------------
+// -------------------- ANIMATION LOOP --------------------
+
 function loop() {
   ctx.fillStyle = "rgb(0 0 0 / 25%)";
   ctx.fillRect(0, 0, width, height);

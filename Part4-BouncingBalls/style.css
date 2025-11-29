@@ -1,18 +1,14 @@
-/*
-  Name: Hrigdev Thapa
-  Date:2025/11/28
-  Filename: style.css
-  Description: Basic styling for the bouncing balls program. This version begins Part 4 and keeps the
-  fullscreen layout to support the new features added later.
+/* 
+ Name: Hrigdev Thapa
+ Description: Basic styles for bouncing balls + score UI
 */
 
-html,
-body {
+html, body {
   margin: 0;
 }
 
 html {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   height: 100%;
 }
 
@@ -28,7 +24,18 @@ h1 {
   margin: 0;
   top: -4px;
   right: 5px;
-
   color: transparent;
   text-shadow: 0 0 4px white;
+}
+
+p {
+  position: absolute;
+  margin: 0;
+  top: 35px;
+  right: 5px;
+  color: #aaaaaa;
+}
+
+canvas {
+  display: block;
 }
